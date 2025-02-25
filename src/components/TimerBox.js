@@ -4,13 +4,14 @@ import { useState, useEffect } from 'react';
 export default function TimerBox() {
   const baseTimers = {
     work: 1500,
-    break: 300,
+    break: 5,
     walk: 600,
   };
 
   const [mode, setMode] = useState('work');
   const [time, setTime] = useState(baseTimers[mode]);
   const [isRunning, setIsRunning] = useState(false);
+  const [ding, setDing] = useState();
 
   const handleToggle = (newMode) => {
     if (mode === newMode) return;
@@ -38,6 +39,7 @@ export default function TimerBox() {
     const interval = setInterval(() => {
       setTime((prevTime) => {
         if (prevTime <= 0) {
+          ding.play();
           setIsRunning(false);
           return 0;
         }
@@ -48,6 +50,10 @@ export default function TimerBox() {
 
     return () => clearInterval(interval);
   }, [isRunning]);
+
+  useEffect(() => {
+    setDing(new Audio('/audio/ding.mp3'));
+  }, []);
 
   return (
     <>
