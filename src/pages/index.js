@@ -1,11 +1,11 @@
 import Head from 'next/head';
 import { Geist, Geist_Mono } from 'next/font/google';
 import styles from '@/styles/Home.module.css';
-import TimerBox from '@/components/TimerBox';
 import ViewToggle from '@/components/ViewToggle';
+import Timer from '@/components/Timer';
+import Calendar from '@/components/Calendar/Calendar';
+import { dayNames } from '@/constants/index';
 import { useState } from 'react';
-import Messages from '@/components/Messages/Messages';
-import ToDoList from '@/components/ToDoList';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -19,6 +19,9 @@ const geistMono = Geist_Mono({
 
 export default function Home() {
   const [viewMode, setViewMode] = useState('timer');
+  const [times, setTimes] = useState(() =>
+    Object.fromEntries(dayNames.map((name) => [name, []]))
+  );
 
   return (
     <>
@@ -33,7 +36,10 @@ export default function Home() {
       </Head>
       <div className={styles.pageContainer}>
         <ViewToggle viewMode={viewMode} setViewMode={setViewMode} />
-        <TimerBox />
+        <div className={styles.viewContainer}>
+          {viewMode === 'timer' && <Timer setTime={setTimes} />}
+          {viewMode === 'calendar' && <Calendar times={times} />}
+        </div>
         {/* <Messages currentChannel={{ id: 0 }} /> */}
         {/* <ToDoList /> */}
       </div>

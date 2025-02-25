@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 // make this: https://www.vox.com/21523212/crossword-puzzles-free-daily-printable
 
-export default function TimerBox() {
+export default function Timer() {
   const baseTimers = {
     work: 1500,
     break: 5,

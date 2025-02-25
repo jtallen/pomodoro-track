@@ -1,11 +1,19 @@
 .pageContainer {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   height: 100vh;
   background-color: lightgray;
-  gap: 10px;
+  /* gap: 10px; */
+}
+
+.viewContainer {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 }
 
 /* .toggleGroup{
