@@ -1,12 +1,68 @@
-.container {
+.pageContainer {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
   background-color: lightgray;
+  gap: 10px;
 }
 
-.box {
+/* .toggleGroup{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+} */
+
+.viewToggleBox {
+  /* border: 1px black solid; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* align-items: center; */
+  /* justify-content: space-between; */
+  min-height: 50px;
+  width: 25%;
+  gap: 10px;
+}
+
+.viewToggle {
+  height: 25px;
+  width: 50px;
+  border: 1px solid black;
+  border-radius: 15px;
+  display:flex;
+  padding: 3px;
+  align-items: center;
+  cursor:pointer;
+}
+
+
+
+.viewToggleThumb {
+  height: 15px;
+  width: 15px;
+  /* border: 1px solid black; */
+  background-color: black;
+  border-radius: 25px;
+  transition: transform 0.2s ease;
+  left: 0;
+}
+
+.viewToggleThumb.toggled {
+  transform: translateX(26px);
+}
+
+.viewToggleLabel {
+  flex: 1;
+  text-align: right;
+}
+
+.viewToggleLabel:last-child {
+  text-align: left;
+}
+
+.timerBox {
   width: 35vw;
   min-height: 500px;
   background-color: white;

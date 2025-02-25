@@ -51,7 +51,7 @@ export default function TimerBox() {
 
   return (
     <>
-      <div className={styles.box}>
+      <div className={styles.timerBox}>
         <h1>Work Timer</h1>
         <div className={styles.toggleBlock}>
           <button
