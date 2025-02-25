@@ -1,6 +1,10 @@
 import styles from '@/styles/Home.module.css';
 import { useState, useEffect } from 'react';
 
+// TODO: when timer hits 0, change 'start' to 'reset'
+
+// make this: https://www.vox.com/21523212/crossword-puzzles-free-daily-printable
+
 export default function TimerBox() {
   const baseTimers = {
     work: 1500,
@@ -23,6 +27,10 @@ export default function TimerBox() {
 
   const startTimer = () => {
     setIsRunning(!isRunning);
+  };
+
+  const resetTimer = () => {
+    setTime(baseTimers[mode]);
   };
 
   const formatTime = () => {
@@ -83,9 +91,13 @@ export default function TimerBox() {
           <h1>{formatTime(time)}</h1>
         </div>
         <div className={styles.toggleBlock}>
-          <button onClick={() => startTimer()}>
-            {isRunning ? 'Pause' : 'Start'}
-          </button>
+          {isRunning && <button onClick={() => startTimer()}>Pause</button>}
+          {!isRunning && time > 0 && (
+            <button onClick={() => startTimer()}>Start</button>
+          )}
+          {!isRunning && time <= 0 && (
+            <button onClick={() => resetTimer()}>Reset</button>
+          )}
         </div>
       </div>
     </>
