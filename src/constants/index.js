@@ -7,3 +7,5 @@ export const dayNames = [
   'Saturday',
   'Sunday',
 ];
+
+export const hours = Array.from({ length: 24 }, (_, i) => i);
