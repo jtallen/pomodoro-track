@@ -2,20 +2,30 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  width: 100%;
-  height: 100%;
-  padding: 50px 150px;
+  width: 80%;
+  height: 80%;
   overflow-y: auto;
+  background-color: white;
+  border: 1px solid black;
 }
 
 .titleContainer {
   display: flex;
+  position: sticky;
+  top: 0;
 }
 
 .titleSpacer {
+  display: flex;
   flex: 1;
   background-color: white;
-  border: 1px solid black;
+  border-bottom: 1px solid black;
+  /* box-shadow: inset -1px 0 0 black; */
+}
+
+.dayTitleContainer {
+  display: flex;
+  flex: 14;
 }
 
 .dayTitle {
@@ -23,55 +33,101 @@
   position: sticky;
   top: 0;
   justify-content: center;
-  border: 1px solid black;
-  border-right: none;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
   height: 35px;
   background-color: white;
   z-index: 1;
   flex: 1;
 }
 
-.dayTitle:last-child {
-  border-right: 1px solid black;
+.dayTitle:first-child {
+  border-left: 1px solid black;
 }
 
-.dayContainer {
+.scheduleContainer {
   display: flex;
+}
+
+.labelContainer {
+  display: flex;
+  flex: 1;
 }
 
 .timeLabelContainer {
   display: flex;
   flex-direction: column;
+  flex: 10;
+  background-color: white;
+  border-right: none;
+  border-top: none;
+}
+
+.labelConnectorColumn {
+  display: flex;
+  flex-direction: column;
   flex: 1;
-  border: 1px solid black;
+  background-color: white;
 }
 
 .labelConnector {
   display: flex;
-  flex-direction: column;
-  flex: 1;
+  flex-grow: 1;
+  border-bottom: 1px solid lightgray;
+  height: 60px;
+}
+
+.labelConnector:last-child {
+  border-bottom: none;
+}
+
+.dayContainer {
+  display: flex;
+  flex: 14;
 }
 
 .dayColumn {
   display: flex;
   flex-direction: column;
   height: 100%;
-  flex: 2;
+  flex: 1;
   background-color: white;
-  border: 1px solid black;
-  border-top: none;
-  border-right: none;
+  border-left: 1px solid black;
 }
+
+/* .dayColumn:first-child {
+  border-left: 1px solid lightgray;
+} */
 
 .dayColumn:last-child {
   border-right: 1px solid black;
 }
 
-.hour {
+.hourLabel {
   display: flex;
   align-items: center;
-  flex-grow: 1;
+  justify-content: flex-end;
+  height: 60px;
+}
+
+.hourLabel p {
+  padding-right: 5px;
+  display: flex;
+  align-items: center;
+  font-size: x-small;
+  margin: 0;
+  text-align: center;
+  height: 100%;
+}
+
+.labelSpacer {
+  height: 30px;
+}
+
+.hour {
   border-bottom: 1px solid lightgray;
+  cursor: crosshair;
+  height: 60px;
 }
 
 .hour:hover {
@@ -80,14 +136,4 @@
 
 .hour:last-child {
   border-bottom: none;
-}
-
-.hour p {
-  padding-left: 5px;
-  display: flex;
-  align-items: center;
-  font-size: x-small;
-  margin: 0;
-  text-align: center;
-  height: 100%;
 }
