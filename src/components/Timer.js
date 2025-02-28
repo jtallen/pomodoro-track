@@ -1,5 +1,5 @@
 import styles from '@/styles/Home.module.css';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // TODO: when timer hits 0, change 'start' to 'reset'
 
@@ -7,13 +7,15 @@ import { useState, useEffect } from 'react';
 
 export default function Timer() {
   const baseTimers = {
-    work: 1500,
-    break: 5,
-    walk: 600,
+    work: 1500000,
+    break: 5000,
+    walk: 600000,
   };
 
+  const endTimeRef = useRef(null);
+
   const [mode, setMode] = useState('work');
-  const [time, setTime] = useState(baseTimers[mode]);
+  const [remainingTime, setRemainingTime] = useState(baseTimers[mode]);
   const [isRunning, setIsRunning] = useState(false);
   const [ding, setDing] = useState();
 
@@ -22,20 +24,22 @@ export default function Timer() {
 
     setMode(newMode);
     setIsRunning(false);
-    setTime(baseTimers[newMode]);
+    setRemainingTime(baseTimers[newMode]);
   };
 
   const startTimer = () => {
+    if (isRunning) {
+    }
     setIsRunning(!isRunning);
   };
 
   const resetTimer = () => {
-    setTime(baseTimers[mode]);
+    setRemainingTime(baseTimers[mode]);
   };
 
   const formatTime = () => {
-    const minutes = Math.floor(time / 60);
-    const seconds = time % 60;
+    const minutes = Math.floor(remainingTime / 60000);
+    const seconds = Math.floor(remainingTime / 1000) % 60;
     return `${minutes.toString().padStart(2, '0')}:${seconds
       .toString()
       .padStart(2, '0')}`;
@@ -44,17 +48,20 @@ export default function Timer() {
   useEffect(() => {
     if (!isRunning) return;
 
-    const interval = setInterval(() => {
-      setTime((prevTime) => {
-        if (prevTime <= 0) {
-          ding.play();
-          setIsRunning(false);
-          return 0;
-        }
+    endTimeRef.current = Date.now() + remainingTime;
 
-        return prevTime - 1;
-      });
-    }, 1000);
+    const interval = setInterval(() => {
+      const now = Date.now();
+
+      const remaining = Math.max(0, Math.floor(endTimeRef.current - now));
+
+      setRemainingTime(remaining);
+
+      if (remaining <= 0) {
+        ding.play();
+        setIsRunning(false);
+      }
+    }, 100);
 
     return () => clearInterval(interval);
   }, [isRunning]);
@@ -88,14 +95,14 @@ export default function Timer() {
           </button>
         </div>
         <div className={styles.clock}>
-          <h1>{formatTime(time)}</h1>
+          <h1>{formatTime(remainingTime)}</h1>
         </div>
         <div className={styles.toggleBlock}>
           {isRunning && <button onClick={() => startTimer()}>Pause</button>}
-          {!isRunning && time > 0 && (
+          {!isRunning && remainingTime > 0 && (
             <button onClick={() => startTimer()}>Start</button>
           )}
-          {!isRunning && time <= 0 && (
+          {!isRunning && remainingTime <= 0 && (
             <button onClick={() => resetTimer()}>Reset</button>
           )}
         </div>
