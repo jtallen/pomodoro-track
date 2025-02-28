@@ -21,7 +21,7 @@ export default function Calendar({ times }) {
   }, []);
 
   return (
-    <div className={styles.calendarBox} ref={calendarRef}>
+    <div className={styles.calendarBox}>
       <div className={styles.titleContainer}>
         <div className={styles.titleSpacer}></div>
         <div className={styles.dayTitleContainer}>
@@ -32,9 +32,9 @@ export default function Calendar({ times }) {
           ))}
         </div>
       </div>
-      <div className={styles.scheduleContainer}>
+      <div className={styles.scheduleContainer} ref={calendarRef}>
         <div className={styles.labelContainer}>
-          <div className={styles.timeLabelContainer}>
+          <div className={styles.timeLabelColumn}>
             <div className={styles.labelSpacer}></div>
             {hours.slice(0, -1).map((hour) => {
               return (
@@ -51,7 +51,6 @@ export default function Calendar({ times }) {
             })}
           </div>
         </div>
-
         <div className={styles.dayContainer}>
           {dayNames.map((name) => (
             <Day name={name} times={times[name]} />
